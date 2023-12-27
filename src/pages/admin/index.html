@@ -11,28 +11,5 @@
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <script src="/admin/reading-time.js"></script>
-    <script>
-      console.log("register preSave listener")
-      CMS.registerEventListener({
-        name: "preSave",
-        handler: (data) => {
-          if (!data.entry.get("data").get("readingTime")) {
-            console.log("set estimated reading time");
-            data.entry.get("data").set(
-              "readingTime",
-              Math.max(
-                Math.round(
-                  readingTime(data.entry.get("data").get("body"), {
-                    wordsPerMinute: 150,
-                  }).minutes
-                ),
-                1
-              )
-            );
-          }
-        },
-      });
-    </script>
   </body>
 </html>
