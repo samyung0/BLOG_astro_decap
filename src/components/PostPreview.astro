@@ -1,112 +1,108 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import { getTag, posts } from "../util";
+import { tags, posts } from "../util";
 import { Image } from "astro:assets";
 import TimeSVG from "../../src/svg/time-outline.svg";
 import LabelsSVG from "../../src/svg/pricetags-outline.svg";
 import LabelSVG from "../../src/svg/pricetag-outline.svg";
-type Props = {
-  tag?: CollectionEntry<"tags">["slug"];
-  relatedPosts?: CollectionEntry<"posts">["slug"][];
-};
 const { tag, relatedPosts } = Astro.props;
 const image = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*.{jpeg,jpg,png,gif}");
 ---
 
 <article>
-  <div class="md:pt-[6vw] xl:max-w-[1200px] xl:mx-auto lg:mx-[5vw] md:mx-[6vw] pt-12 md:p-0 ">
+  <div class="md:pt-[6vw] xl:max-w-[1200px] xl:mx-auto lg:mx-[5vw] md:mx-[6vw] pt-12 md:p-0">
     <ul
       class="grid xl:grid-cols-3 xl:gap-x-24 lg:gap-y-[6vw] lg:gap-x-24 sm:grid-cols-2 gap-12 grid-cols-1"
     >
       {
-        posts
-          .filter((post) => !tag || post.data.tags.find((tag2) => tag2.slug === tag))
-          .filter((post) => !relatedPosts || relatedPosts.includes(post.slug))
-          .map(({ data: { thumbnail, date, title, tags, readingTime }, slug }) => (
-            <li>
-              <div class="text-center">
-                {thumbnail && (
-                  <a class="inline-block" href={`/post/${slug}`}>
-                    <Image
-                      class="max-h-[230px] w-full object-contain object-bottom"
-                      src={image["/src" + thumbnail]()}
-                      alt="Thumbnail"
-                    />
-                  </a>
-                )}
-              </div>
-              <div>
-                <div class="md:mt-2 bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_50%,rgba(125,125,125,.255)_50%,rgba(255,255,255,0)_calc(50%+3px),rgba(255,255,255,0)_100%)]">
-                  <span class="text-primary-gray tracking-wide md:text-xs text-[0.5rem] leading-4 font-bold bg-background-gray md:pr-4 pr-2">
-                    {new Date(date).toDateString().slice(4)}
-                  </span>
+        posts &&
+          posts
+            .filter((post) => !tag || post.data.tags.find((tag2: any) => tag2.slug === tag))
+            .filter((post) => !relatedPosts || relatedPosts.includes(post.slug))
+            .map(({ data: { thumbnail, date, title, readingTime }, data, slug }) => (
+              <li>
+                <div class="text-center">
+                  {thumbnail && (
+                    <a class="inline-block" href={`/post/${slug}`}>
+                      <Image
+                        class="max-h-[230px] w-full object-contain object-bottom"
+                        src={image["/src" + thumbnail]()}
+                        alt="Thumbnail"
+                      />
+                    </a>
+                  )}
                 </div>
-                <a
-                  class="pt-2 block font-bold tracking-wider md:text-xl text-lg text-primary-gray"
-                  href={`/post/${slug}`}
-                >
-                  <h3>{title}</h3>
-                </a>
-                <div class="pt-1 flex items-center space-x-2">
-                  <span>
-                    <Image class="md:h-5 md:w-5 h-3 w-3" src={TimeSVG} alt="" />
-                  </span>
-                  <span class="text-primary-gray tracking-wide md:text-sm text-xs md:font-bold">
-                    {Number(readingTime) > 0 ? readingTime : "1"} min read
-                  </span>
-                </div>
-                {tags.length > 0 && (
-                  <div class="pt-1 flex items-center space-x-2">
-                    <span>
-                      {tags.length > 1 ? (
-                        <Image
-                          class="md:h-5 md:w-5 h-3 w-3 md:mt-0 mt-[2px]"
-                          src={LabelsSVG}
-                          alt=""
-                        />
-                      ) : (
-                        <Image
-                          class="md:h-5 md:w-5 h-3 w-3 md:mt-0 mt-[2px]"
-                          src={LabelSVG}
-                          alt=""
-                        />
-                      )}
-                    </span>
-                    <span>
-                      {(async () => {
-                        let tagsDisplay = await Promise.all(
-                          tags.map(async ({ slug }) => {
-                            const tag = await getTag(slug);
-                            return (
-                              tag && (
-                                <a
-                                  class="text-primary-gray tracking-wide md:text-sm text-xs md:font-bold"
-                                  href={`/tag/${slug}`}
-                                >
-                                  {tag.data.title}
-                                </a>
-                              )
-                            );
-                          })
-                        );
-                        if (tagsDisplay.length > 3) {
-                          tagsDisplay = tagsDisplay.slice(0, 3);
-                          tagsDisplay.push("...");
-                        }
-                        const ret = [];
-                        ret.push(tagsDisplay[0]);
-                        for (let i = 1; i < tagsDisplay.length; i++) {
-                          ret.push(", ");
-                          ret.push(tagsDisplay[i]);
-                        }
-                        return ret;
-                      })()}
+                <div>
+                  <div class="md:mt-2 bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_50%,rgba(125,125,125,.255)_50%,rgba(255,255,255,0)_calc(50%+3px),rgba(255,255,255,0)_100%)]">
+                    <span class="text-primary-gray tracking-wide md:text-xs text-[0.5rem] leading-4 font-bold bg-background-gray md:pr-4 pr-2">
+                      {new Date(date).toDateString().slice(4)}
                     </span>
                   </div>
-                )}
-              </div>
-            </li>
-          ))
+                  <a
+                    class="pt-2 block font-bold tracking-wider md:text-xl text-lg text-primary-gray"
+                    href={`/post/${slug}`}
+                  >
+                    <h3>{title}</h3>
+                  </a>
+                  <div class="pt-1 flex items-center space-x-2">
+                    <span>
+                      <Image class="md:h-5 md:w-5 h-3 w-3" src={TimeSVG} alt="" />
+                    </span>
+                    <span class="text-primary-gray tracking-wide md:text-sm text-xs md:font-bold">
+                      {Number(readingTime) > 0 ? readingTime : "1"} min read
+                    </span>
+                  </div>
+                  {data.tags.length > 0 && (
+                    <div class="pt-1 flex items-center space-x-2">
+                      <span>
+                        {data.tags.length > 1 ? (
+                          <Image
+                            class="md:h-5 md:w-5 h-3 w-3 md:mt-0 mt-[2px]"
+                            src={LabelsSVG}
+                            alt=""
+                          />
+                        ) : (
+                          <Image
+                            class="md:h-5 md:w-5 h-3 w-3 md:mt-0 mt-[2px]"
+                            src={LabelSVG}
+                            alt=""
+                          />
+                        )}
+                      </span>
+                      <span>
+                        {(async () => {
+                          let tagsDisplay = await Promise.all(
+                            data.tags.map(async ({ slug: any }) => {
+                              const tag = tags.filter((tag) => tag.slug === slug)[0];
+                              return (
+                                tag && (
+                                  <a
+                                    class="text-primary-gray tracking-wide md:text-sm text-xs md:font-bold"
+                                    href={`/tag/${slug}`}
+                                  >
+                                    {tag.data.title}
+                                  </a>
+                                )
+                              );
+                            })
+                          );
+                          if (tagsDisplay.length > 3) {
+                            tagsDisplay = tagsDisplay.slice(0, 3);
+                            tagsDisplay.push("...");
+                          }
+                          const ret = [];
+                          ret.push(tagsDisplay[0]);
+                          for (let i = 1; i < tagsDisplay.length; i++) {
+                            ret.push(", ");
+                            ret.push(tagsDisplay[i]);
+                          }
+                          return ret;
+                        })()}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </li>
+            ))
       }
     </ul>
   </div>

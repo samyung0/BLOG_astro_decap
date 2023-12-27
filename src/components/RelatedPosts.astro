@@ -1,17 +1,13 @@
 ---
 import RelatedPostSVG from "../../src/svg/document-outline.svg";
 import RelatedPostsSVG from "../../src/svg/documents-outline.svg";
-import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
 import { posts } from "../util";
 import PostPreview from "./PostPreview.astro";
-type Props = {
-  post: CollectionEntry<"posts">["data"]["relatedPosts"];
-};
 const { post } = Astro.props;
 const relatedPosts =
   post &&
-  posts.filter((relatedPost) => post.find((innerPost) => innerPost.slug === relatedPost.slug));
+  posts.filter((relatedPost) => post.find((innerPost: any) => innerPost.slug === relatedPost.slug));
 ---
 
 {
@@ -35,7 +31,7 @@ const relatedPosts =
         :
       </h2>
       <div>
-        <PostPreview relatedPosts={relatedPosts.map((post) => post.slug)} />
+        <PostPreview relatedPosts={relatedPosts.map((post: any) => post.slug)} />
       </div>
     </section>
   )
