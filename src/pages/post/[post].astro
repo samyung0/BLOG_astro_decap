@@ -6,13 +6,15 @@ import Prose from "../../components/Prose.astro";
 import { posts } from "../../util";
 import RelatedPosts from "../../components/RelatedPosts.astro";
 export const getStaticPaths = (async () => {
-  return posts.map((post) => {
-    return {
-      params: {
-        post: post.slug,
-      },
-    };
-  });
+  return posts
+    ? posts.map((post) => {
+        return {
+          params: {
+            post: post.slug,
+          },
+        };
+      })
+    : [];
 }) satisfies GetStaticPaths;
 const { post } = Astro.params;
 const postContent = posts.find((post2) => post2.slug === post)!;
