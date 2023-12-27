@@ -13,7 +13,7 @@ relatedPosts:
   - blablabla
 date: 2023-12-27T06:03:08.757Z
 thumbnail: /assets/003.jpg
-readingTime: ""
+readingTime: 5
 ---
 # line123
 
