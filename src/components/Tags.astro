@@ -1,0 +1,24 @@
+---
+import LabelsSVG from "../../src/svg/pricetags-outline.svg";
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import { posts, tags } from "../util";
+const tagsNotEmpty: Partial<Record<CollectionEntry<"tags">["slug"], CollectionEntry<"tags">>> = {}
+posts.forEach(post => post.data.tags.forEach(tag => (!tagsNotEmpty.hasOwnProperty(tag.slug)) && (tagsNotEmpty[tag.slug] = tags.filter(tag2 => tag2.slug === tag.slug)[0])))
+---
+
+<section class="md:py-[6vw] flex md:flex-row flex-col items-start xl:max-w-[1100px] xl:mx-auto lg:mx-[5vw] md:mx-[6vw] py-12 md:p-0">
+  <h2 class="font-mosk text-primary-gray font-bold md:text-xl text-lg -mt-[2px] tracking-wide mr-12 leading-8">
+    Tags <Image src={LabelsSVG} alt="" class="md:h-6 md:w-6 w-5 h-5 inline-block md:mr-4 mr-2" />:
+  </h2>
+  <ul class="flex max-w-[800px] flex-wrap">
+    {
+      Object.values(tagsNotEmpty)
+        .map((tag) => (
+          <li class="text-primary-gray font-bold tracking-wide mr-4 leading-8 md:text-base text-sm">
+            <a href={`/tag/${tag.slug}`}>{tag.data.title}</a>
+          </li>
+        ))
+    }
+  </ul>
+</section>

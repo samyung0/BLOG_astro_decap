@@ -1,0 +1,37 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import { getAuthor } from "../../util";
+const author = (await getAuthor("sam-yung"))!;
+const image = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg,jpg,png,gif}');
+---
+
+<Layout noPaddingTop title="Blog Posts">
+  <div class="min-h-[100vh] lg:px-[10vw] px-[8vw] flex flex-col justify-center items-center">
+    {
+      author.data.bioImage && (
+        <div>
+          <Image
+            class="xl:h-[200px] xl:w-[200px] md:h-[140px] md:w-[140px] h-[100px] w-[100px]   object-contain rounded-full"
+            src={image["/src" + author.data.bioImage]()}
+            alt="Profile Pic"
+          />
+        </div>
+      )
+    }
+    <h1 class="font-gilroy text-primary-gray font-bold text-[2em] md:pt-12 md:pb-6 pt-8 pb-3">
+      {author.data.title}
+    </h1>
+    <p class="tracking-wide md:leading-8 xl:mx-0 md:mx-[10vw] sm:mx-6 leading-7 xl:text-left text-center">{author.data.bio}</p>
+  </div>
+</Layout>
+
+<style>
+  @font-face {
+    font-family: "gilroy";
+    src: url("/font/gilroy/Gilroy-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>

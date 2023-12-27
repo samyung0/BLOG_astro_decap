@@ -1,0 +1,47 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro";
+import Tags from "../../components/Tags.astro";
+import Prose from "../../components/Prose.astro";
+// import p from "../../components/renderBlock/p";
+// import code from "../../components/renderBlock/code";
+// import strikethrough from "../../components/renderBlock/strikethrough";
+// import underline from "../../components/renderBlock/underline";
+// import inlineCode from "../../components/renderBlock/inlineCode";
+// import listItem from "../../components/renderBlock/listItem";
+// import list from "../../components/renderBlock/list";
+// import image from "../../components/renderBlock/image";
+// import italic from "../../components/renderBlock/italic";
+// import bold from "../../components/renderBlock/bold";
+// import heading from "../../components/renderBlock/heading";
+// import quote from "../../components/renderBlock/quote";
+// import link from "../../components/renderBlock/link";
+// import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { posts } from "../../util";
+export const getStaticPaths = (async () => {
+  return posts.map((post) => {
+    return {
+      params: {
+        post: post.slug,
+      },
+    };
+  });
+}) satisfies GetStaticPaths;
+const { post } = Astro.params;
+const postContent = posts.find((post2) => post2.slug === post)!;
+const { Content, headings, remarkPluginFrontmatter } = await postContent.render();
+---
+
+<Layout title="Post">
+  <h1 class="font-mosk text-primary-gray font-bold md:text-[4em] text-[3em] pb-4 tracking-wider">
+    {postContent.data.title}
+  </h1>
+  <div
+    class="md:pt-[6vw] xl:max-w-[1200px] xl:mx-auto lg:mx-[5vw] md:mx-[6vw] pt-12 md:p-0 md:tracking-wide md:leading-8 leading-6"
+  >
+    <Prose>
+      <Content />
+    </Prose>
+  </div>
+  <Tags />
+</Layout>
