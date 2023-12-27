@@ -7,7 +7,7 @@ import PostPreview from "./PostPreview.astro";
 const { post } = Astro.props;
 const relatedPosts =
   post &&
-  posts.filter((relatedPost) => post.find((innerPost: any) => innerPost.slug === relatedPost.slug));
+  posts.filter((relatedPost) => post.find((innerPost: any) => innerPost === relatedPost.slug));
 ---
 
 {
