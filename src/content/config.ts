@@ -10,6 +10,7 @@ const Posts = defineCollection({
     date: z.date(),
     thumbnail: z.string(),
     readingTime: z.number().or(z.literal("")).optional(),
+    relatedPosts: z.array(reference("posts")).optional(),
   }),
 });
 const Tags = defineCollection({

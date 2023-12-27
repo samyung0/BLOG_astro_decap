@@ -11,7 +11,6 @@ tags:
 author: sam-yung
 relatedPosts:
   - blablabla
-  - sadad
 date: 2023-12-27T06:03:08.757Z
 thumbnail: /assets/003.jpg
 readingTime: ""

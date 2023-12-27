@@ -18,6 +18,7 @@ import Prose from "../../components/Prose.astro";
 // import link from "../../components/renderBlock/link";
 // import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { posts } from "../../util";
+import RelatedPosts from "../../components/RelatedPosts.astro";
 export const getStaticPaths = (async () => {
   return posts.map((post) => {
     return {
@@ -44,4 +45,5 @@ const { Content, headings, remarkPluginFrontmatter } = await postContent.render(
     </Prose>
   </div>
   <Tags />
+  <RelatedPosts post={postContent.data.relatedPosts} />
 </Layout>

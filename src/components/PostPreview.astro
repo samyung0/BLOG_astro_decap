@@ -7,8 +7,9 @@ import LabelsSVG from "../../src/svg/pricetags-outline.svg";
 import LabelSVG from "../../src/svg/pricetag-outline.svg";
 type Props = {
   tag?: CollectionEntry<"tags">["slug"];
+  relatedPosts?: CollectionEntry<"posts">["slug"][];
 };
-const { tag } = Astro.props;
+const { tag, relatedPosts } = Astro.props;
 const image = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*.{jpeg,jpg,png,gif}");
 ---
 
@@ -20,6 +21,7 @@ const image = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*.{jpeg,
       {
         posts
           .filter((post) => !tag || post.data.tags.find((tag2) => tag2.slug === tag))
+          .filter((post) => !relatedPosts || relatedPosts.includes(post.slug))
           .map(({ data: { thumbnail, date, title, tags, readingTime }, slug }) => (
             <li>
               <div class="text-center">
