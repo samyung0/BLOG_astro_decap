@@ -9,6 +9,9 @@ tags:
   - blog
   - react-js
 author: sam-yung
+relatedPosts:
+  - blablabla
+  - sadad
 date: 2023-12-27T06:03:08.757Z
 thumbnail: /assets/003.jpg
 readingTime: ""
@@ -18,12 +21,6 @@ readingTime: ""
 > Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis at tellus at urna condimentum. Fermentum et sollicitudin ac orci phasellus egestas tellus. Nibh venenatis cras sed felis. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar. Lorem ipsum dolor sit amet consectetur. Mauris pharetra et ultrices neque ornare aenean euismod elementum. Massa sapien faucibus et molestie ac feugiat sed lectus vestibulum. Convallis tellus id interdum velit laoreet id donec. Praesent elementum facili
 
 sis leo vel fringilla est ullamcorper. Fermentum le
-
-
-
-
-
-
 
 o vel orci porta non pulvinar neque. Lacus sed turpis tincidunt id aliquet risus feugiat in. Varius vel pharetra vel turpis nunc. Tristique sollicitudin nibh sit amet commodo nulla facilisi nullam vehicula.
 
