@@ -4,9 +4,12 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://blog.partialty.com",
   integrations: [
     tailwind(),
-    sitemap(),
+    sitemap({
+      filter: (page) => page !== 'https://blog.partialty.com/admin/',
+    }),
   ],
   prefetch: {
     prefetchAll: true,
