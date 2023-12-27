@@ -71,7 +71,7 @@ const image = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*.{jpeg,
                       <span>
                         {(async () => {
                           let tagsDisplay = await Promise.all(
-                            data.tags.map(async ({ slug: any }) => {
+                            data.tags.map(async ({ slug }: any) => {
                               const tag = tags.filter((tag) => tag.slug === slug)[0];
                               return (
                                 tag && (
