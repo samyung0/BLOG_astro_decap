@@ -7,8 +7,8 @@ if (posts)
   posts.forEach((post) =>
     post.data.tags.forEach(
       (tag: any) =>
-        !tagsNotEmpty.hasOwnProperty(tag.slug) &&
-        (tagsNotEmpty[tag.slug] = tags.filter((tag2) => tag2.slug === tag.slug)[0])
+        !tagsNotEmpty.hasOwnProperty(tag) &&
+        (tagsNotEmpty[tag] = tags.filter((tag2) => tag2.slug === tag)[0])
     )
   );
 ---
