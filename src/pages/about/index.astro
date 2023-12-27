@@ -6,7 +6,7 @@ const author = authors.filter((author) => author.slug === "sam-yung")[0];
 const image = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*.{jpeg,jpg,png,gif}");
 ---
 
-<Layout noPaddingTop title="Blog Posts">
+<Layout noPaddingTop title="About Me">
   {
     author && (
       <div class="min-h-[100vh] lg:px-[10vw] px-[8vw] flex flex-col justify-center items-center">

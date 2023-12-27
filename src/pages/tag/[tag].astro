@@ -5,19 +5,23 @@ import PostPreview from "../../components/PostPreview.astro";
 import Tags from "../../components/Tags.astro";
 import { tags } from "../../util";
 export const getStaticPaths = (async () => {
-  return tags.map((tag) => {
-    return {
-      params: {
-        tag: tag.slug,
-      },
-    };
-  });
+  return tags
+    ? tags.map((tag: any) => {
+        return {
+          params: {
+            tag: tag.slug,
+          },
+        };
+      })
+    : [];
 }) satisfies GetStaticPaths;
 const { tag } = Astro.params;
 ---
 
-<Layout title="Tags">
-  <h1 class="font-mosk text-primary-gray font-bold md:text-[6em] text-[4em] pb-4 tracking-wider">Tag: {tag}</h1>
+<Layout title={"Tag " + tag}>
+  <h1 class="font-mosk text-primary-gray font-bold md:text-[6em] text-[4em] pb-4 tracking-wider">
+    Tag: {tag}
+  </h1>
   <PostPreview tag={tag} />
   <Tags />
 </Layout>

@@ -7,7 +7,7 @@ import { posts } from "../../util";
 import RelatedPosts from "../../components/RelatedPosts.astro";
 export const getStaticPaths = (async () => {
   return posts
-    ? posts.map((post) => {
+    ? posts.map((post: any) => {
         return {
           params: {
             post: post.slug,
@@ -17,11 +17,11 @@ export const getStaticPaths = (async () => {
     : [];
 }) satisfies GetStaticPaths;
 const { post } = Astro.params;
-const postContent = posts.find((post2) => post2.slug === post)!;
+const postContent: any = posts.find((post2: any) => post2.slug === post)!;
 const { Content, headings, remarkPluginFrontmatter } = await postContent.render();
 ---
 
-<Layout title="Post">
+<Layout title={postContent.data.title}>
   <h1 class="font-mosk text-primary-gray font-bold md:text-[4em] text-[3em] pb-4 tracking-wider">
     {postContent.data.title}
   </h1>
