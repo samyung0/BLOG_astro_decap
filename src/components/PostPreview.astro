@@ -16,9 +16,9 @@ const image = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*.{jpeg,
       {
         posts &&
           posts
-            .filter((post) => !tag || post.data.tags.find((tag2: any) => tag2.slug === tag))
-            .filter((post) => !relatedPosts || relatedPosts.includes(post.slug))
-            .map(({ data: { thumbnail, date, title, readingTime }, data, slug }) => (
+            .filter((post: any) => !tag || post.data.tags.find((tag2: any) => tag2.slug === tag))
+            .filter((post: any) => !relatedPosts || relatedPosts.includes(post.slug))
+            .map(({ data: { thumbnail, date, title, readingTime }, data, slug }: any) => (
               <li>
                 <div class="text-center">
                   {thumbnail && (
@@ -72,7 +72,7 @@ const image = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*.{jpeg,
                         {(async () => {
                           let tagsDisplay = await Promise.all(
                             data.tags.map(async ({ slug }: any) => {
-                              const tag = tags.filter((tag) => tag.slug === slug)[0];
+                              const tag = tags.filter((tag: any) => tag.slug === slug)[0];
                               return (
                                 tag && (
                                   <a
